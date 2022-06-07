@@ -2,6 +2,50 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./frontend/actions/step_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/step_actions.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_STEP": () => (/* binding */ RECEIVE_STEP),
+/* harmony export */   "RECEIVE_STEPS": () => (/* binding */ RECEIVE_STEPS),
+/* harmony export */   "REMOVE_STEP": () => (/* binding */ REMOVE_STEP),
+/* harmony export */   "receiveStep": () => (/* binding */ receiveStep),
+/* harmony export */   "receiveSteps": () => (/* binding */ receiveSteps),
+/* harmony export */   "removeStep": () => (/* binding */ removeStep)
+/* harmony export */ });
+var RECEIVE_STEP = "RECEIVE_STEP";
+var RECEIVE_STEPS = "RECEIVE_STEPS";
+var REMOVE_STEP = "REMOVE_STEP";
+
+var receiveSteps = function receiveSteps(steps) {
+  return {
+    type: RECEIVE_STEPS,
+    steps: steps
+  };
+};
+
+var receiveStep = function receiveStep(step) {
+  return {
+    type: RECEIVE_STEP,
+    step: step
+  };
+};
+
+var removeStep = function removeStep(step) {
+  return {
+    type: REMOVE_STEP,
+    step: step
+  };
+};
+
+
+
+/***/ }),
+
 /***/ "./frontend/actions/todo_actions.js":
 /*!******************************************!*\
   !*** ./frontend/actions/todo_actions.js ***!
@@ -126,14 +170,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _todos_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./todos_reducer */ "./frontend/reducers/todos_reducer.js");
+/* harmony import */ var _steps_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./steps_reducer */ "./frontend/reducers/steps_reducer.js");
 
 
-var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
-  todos: _todos_reducer__WEBPACK_IMPORTED_MODULE_0__["default"]
+
+var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+  todos: _todos_reducer__WEBPACK_IMPORTED_MODULE_0__["default"],
+  steps: _steps_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rootReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/steps_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/steps_reducer.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_step_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/step_actions */ "./frontend/actions/step_actions.js");
+
+var initialState = {
+  1: {
+    title: "Take it to the car wash dummy",
+    todo_id: 1,
+    done: false
+  },
+  2: {
+    title: "Then pay someone to wash it. You're too gross",
+    todo_id: 1,
+    done: false
+  }
+};
+
+var stepsReducer = function stepsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var nextState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_step_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_STEPS:
+      nextState = Object.assign({}, action.steps);
+      return nextState;
+
+    case _actions_step_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_STEP:
+      nextState[action.step.id] = action.step;
+      return nextState;
+
+    case _actions_step_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_STEP:
+      delete nextState[action.step.id];
+      return nextState;
+
+    default:
+      return nextState;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (stepsReducer);
 
 /***/ }),
 
